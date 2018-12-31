@@ -1,0 +1,90 @@
+<div class="card">
+    <div class="card-body">
+        <!--        <div class="form-group row">
+                    <label class="col-lg-1">Name</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="table_name" [(ngModel)]="table_name" class="form-control">
+                    </div>
+                </div>-->
+        <div class="col-lg-4">
+            <div class="md-form">
+                <input type="text" id="table_name" class="form-control" name="table_name" [(ngModel)]="table_name" class="form-control">
+                <label for="table_name">Name</label>
+            </div>
+        </div>
+        <table class="table table-bordered table-condensed table-stripped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                    <th>Comment</th>
+                    <th>Null</th>
+                    <th>Index</th>
+                    <th>A.I</th>
+                    <th style="width: 12%;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of table_data; let i = index;">
+                    <td><input type="text" class="form-control" [(ngModel)]="item.name" name="name{{i}}"></td>
+                    <td>
+                        <select  class="mdb-select form-control" [(ngModel)]="item.type"  name="type{{i}}">
+                            <option *ngFor="let data_type of data_types"  [ngValue]="data_type"> {{data_type.display_name}}</option>
+                        </select>
+                        <span *ngIf="item.type.value=='varchar'">
+                            <input type="text" class="form-control" [(ngModel)]="item.length" name="length{{i}}">
+                        </span>
+                    </td>
+
+                    <td>
+                        <select  class="form-control" [(ngModel)]="item.default" name="default{{i}}">
+                            <option value="none">None</option>
+                            <option value="as_defined">As Defined</option>
+                            <option value="null">NULL</option>
+                            <option value="current_timestamp">CURRENT_TIMESTAMP</option>
+                        </select>
+                        <span *ngIf="item.default=='as_defined'">
+                            <textarea class="form-control" [(ngModel)]="default_defined_value" name="default_defined_value{{i}}"></textarea>
+                        </span>
+                    </td>
+                    <td>
+                        <textarea class="form-control" [(ngModel)]="item.comment" name="comment{{i}}"></textarea>
+                    </td>
+                    <td>
+
+                        <div class="form-group">
+                            <input type="checkbox" class="filled-in" id="is_null" checked="checked" [(ngModel)]="item.null" name="null{{i}}">
+                            <label for="is_null"></label>
+                        </div>
+                    </td>
+                    <td>
+                        <select  class="form-control" [(ngModel)]="item.index"  name="index{{i}}">
+                            <option *ngFor="let ind of index_array"  [ngValue]="ind"> {{ind.display_name}}</option>
+                        </select>
+                    </td>
+                    <td>
+
+                        <div class="form-group">
+                            <input type="checkbox" class="filled-in" id="auto_increament" checked="checked" [(ngModel)]="item.auto_increament" name="auto_increament{{i}}">
+                            <label for="auto_increament"></label>
+                        </div>
+                    <td>
+                        <button class="btn btn-success btn-fab btn-fab-mini btn-round" (click)="addRow()">
+                            <i class="fa fa-plus-circle"></i>
+                        </button>
+                        <button class="btn btn-danger btn-fab btn-fab-mini btn-round" *ngIf="i>0" (click)="deleteRow(i)">
+                            <!--<i class="material-icons">font icons</i>-->
+                            <i class="fa fa-minus-circle"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="">
+            <button class="btn btn-primary" (click)="createTable()">Create</button>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,105 @@
+<header>
+    <nav class="navbar fixed-top navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav">
+        <div class="float-left ">
+            <a href="#" data-activates="slide-out" class="button-collapse black-text"><i class="fa fa-bars"></i></a>
+        </div>
+        <!-- Breadcrumb-->
+        <div class=" breadcrumb-dn mr-auto">
+            <p>mQuery UI</p>
+        </div>
+
+        <!--Navbar links-->
+        <!--        <ul class="nav navbar-nav nav-flex-icons ml-auto">
+
+                     Dropdown
+                    <li class="nav-item dropdown notifications-nav">
+                        <a class="nav-link dropdown-toggle waves-effect" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">
+                            <span class="badge red">3</span> <i class="fa fa-bell"></i>
+                            <span class="d-none d-md-inline-block">Notifications</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-info" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">
+                                <i class="fa fa-money mr-2" aria-hidden="true"></i>
+                                <span>New order received</span>
+                                <span class="float-right"><i class="fa fa-clock-o" aria-hidden="true"></i> 13 min</span>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fa fa-money mr-2" aria-hidden="true"></i>
+                                <span>New order received</span>
+                                <span class="float-right"><i class="fa fa-clock-o" aria-hidden="true"></i> 33 min</span>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fa fa-line-chart mr-2" aria-hidden="true"></i>
+                                <span>Your campaign is about to end</span>
+                                <span class="float-right"><i class="fa fa-clock-o" aria-hidden="true"></i> 53 min</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect"><i class="fa fa-envelope"></i> <span class="clearfix d-none d-sm-inline-block">Contact</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect"><i class="fa fa-comments-o"></i> <span class="clearfix d-none d-sm-inline-block">Support</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle waves-effect" href="#" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user"></i> <span class="clearfix d-none d-sm-inline-block">Profile</span></a>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="#">Log Out</a>
+                            <a class="dropdown-item" href="#">My account</a>
+                        </div>
+                    </li>
+
+                </ul>-->
+        <!--/Navbar links-->
+    </nav>
+</header>
+
+<!--DONT REMOVE Height-->
+<div class="container-fluid" style="margin-top:5%;height:1000px;">
+    <split [direction]="horizontal" >
+        <split-area size="25" class="card" style="padding:2%">
+            <form class="">
+
+                <div class="md-form">
+                    <input id="filter" class="input-sm" type="text" #filter (keyup)="tree.treeModel.filterNodes(filter.value,true)" placeholder="Search"/></div>
+                <button class="btn btn-sm btn-primary"(click)="tree.treeModel.clearFilter()"><i class="fa fa-close"></i></button>
+            </form>
+            <tree-root #tree [nodes]="menu" [options]="options" >
+                <ng-template #loadingTemplate let-node>Loading <b>{{node.data.child_type}}</b>...</ng-template>
+                <ng-template #treeNodeWrapperTemplate let-node let-index="index">
+                    <div class="node-wrapper" [style.padding-left]="node.getNodePadding()">
+                        <tree-node-expander [node]="node"></tree-node-expander>
+                        <div class="node-content-wrapper"
+                             [class.node-content-wrapper-active]="node.isActive"
+                             [class.node-content-wrapper-focused]="node.isFocused"
+                             (click)="node.mouseAction('click', $event)">
+                            <div *ngIf="node.data.type!='field'">
+                                <a [routerLink]="[node.data.url]">{{node.data.name}}&nbsp;
+                                    <i class="fa fa-{{node.data.icon}}"></i>
+                                </a>
+                            </div>
+                            <div *ngIf="node.data.type=='field'">
+                                {{node.data.name}} <b>({{node.data.data_type}})</b>
+                            </div>
+
+                        </div>
+                    </div>
+                </ng-template>
+            </tree-root>
+
+        </split-area>
+        <split-area size="75" >
+            <div [hidden]="!loading" class="loader">
+                <h2>Loading...</h2>
+                <!--<md-progress-bar mode="indeterminate"></md-progress-bar>-->
+            </div>
+            <main [hidden]="loading" role="main" class="router-output col-sm-12 col-md-12" style='padding-top: 0.5%'>
+                <router-outlet></router-outlet>
+            </main>
+        </split-area>
+    </split>
+
+</div>

@@ -1,0 +1,44 @@
+<ul class="nav nav-tabs nav-justified">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#panel1" role="tab">Profile</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#panel2" role="tab">Follow</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#panel3" role="tab">Contact</a>
+    </li>
+</ul>
+
+<div class="">
+
+
+    <ngx-datatable
+        class="bootstrap"
+        [rows]="data"
+        [columns]="keys"
+        [loadingIndicator]="loadingIndicator"
+        [reorderable]="reorderable"
+        [limit]="10"
+        [columnMode]="'force'"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        [rowHeight]="'auto'"
+        class="megamtechtable striped">
+    </ngx-datatable>
+</div>
+
+
+
+<ul>
+    <ng-template #recursiveList let-list>
+        <li *ngFor="let item of list">
+            {{item.name}}
+            <ul *ngIf="item.subnodes.length > 0">
+                <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
+            </ul>
+        </li>
+    </ng-template>
+    <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: list }"></ng-container>
+</ul>
+

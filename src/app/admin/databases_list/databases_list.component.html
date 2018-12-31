@@ -1,0 +1,28 @@
+<div class="col-lg-4">
+    <div class="md-form">
+        <input type="text" id="database_name" class="form-control" name="database_name" [(ngModel)]="database_name" class="form-control">
+        <label for="database_name">Name</label>
+    </div>
+</div>
+
+<button class="btn btn-primary" type="button" (click)="createDatabase()" >Create Database</button>
+
+
+<ngx-datatable
+    [rows]="databases"
+    [columns]="databases_columns"
+    [reorderable]="reorderable"
+    [limit]="10"
+    [columnMode]="'force'"
+    loadingIndicator="loadingIndicator"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    [rowHeight]="'auto'"
+    [scrollbarH]=true
+    class="megamtechtable striped table bootstrap">
+</ngx-datatable>
+
+<ng-template #actionTmpl  let-row="row" let-value="value">
+    <a class="btn-floating btn-sm"><i class="fa fa-edit"></i></a>
+    <a class="btn-floating btn-sm" tooltip="Drop"><i class="fa fa-minus-square"></i></a>
+</ng-template>

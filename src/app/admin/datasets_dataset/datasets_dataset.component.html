@@ -1,0 +1,86 @@
+<nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb">
+
+        <li class="breadcrumb-item " *ngFor="let breadcrumb of breadcrumbs" aria-current="page">
+            <a *ngIf="breadcrumb.type!=''" href='#'>
+                {{breadcrumb.name}}
+            </a>
+            <span *ngIf="breadcrumb.type==''">
+                {{breadcrumb.name}}
+            </span>
+        </li>
+    </ol>
+</nav>
+<ngb-tabset (NgbTabChangeEvent)="initTabContent($event)">
+    <ngb-tab title="data">
+        <ng-template ngbTabContent>
+            <div class="card card-nav-tabs" *ngIf="connection_type!='mongo'">
+                <ngx-datatable [rows]="fields" [reorderable]="reorderable" loadingIndicator=true [columns]="columns"
+                    [scrollbarH]=true [limit]="10" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+                    [rowHeight]="'auto'" class="megamtechtable striped table">
+                </ngx-datatable>
+
+
+            </div>
+            <div class="card card-nav-tabs" *ngIf="connection_type=='mongo'">
+
+                <!-- <fy-angular-json-viewer [json]="dataset_data"></fy-angular-json-viewer> -->
+            </div>
+
+            <!--<pre>{{dataset_data0 | json}}</pre>-->
+
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab *ngIf="" title="Structure">
+        <ng-template ngbTabContent>
+
+            <ngx-datatable class="bootstrap" loadingIndicator=true [scrollbarH]=true [rows]="fields" [columns]="columns"
+                [headerHeight]="50" [footerHeight]="50" [columnMode]="'force'" [sortType]="'multi'">
+            </ngx-datatable>
+            <ng-template #actionTmpl let-row="row" let-value="value">
+                <a class="btn-primary btn btn-sm"><i class="fa fa-edit"></i></a>
+                <a class="btn-primary btn btn-sm"><i class="fa fa-trash"></i></a>
+            </ng-template>
+
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab title="SQL">
+        <ng-template ngbTabContent>
+            <div class="card card-nav-tabs">
+                <div class="card card-nav-tabs">
+                    <div class="form-group row">
+                        <div class="col-lg-10">
+                            <textarea class="form-control" [(ngModel)]="sql" name="sql" row="10" column="100"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-10">
+                        <div class="pull-right">
+                            <button class="btn btn-info" (click)="excuteQuery(sql)">Go</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Search">
+        <ng-template ngbTabContent>
+            <div class="card card-nav-tabs">
+                <h3>Search</h3>
+            </div>
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Import">
+        <ng-template ngbTabContent>
+            <div class="card card-nav-tabs">
+                <h3>Import</h3>
+            </div>
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Export">
+        <ng-template ngbTabContent>
+            <div class="card card-nav-tabs">
+                <h3>Export</h3>
+            </div>
+        </ng-template>
+    </ngb-tab>
+</ngb-tabset>

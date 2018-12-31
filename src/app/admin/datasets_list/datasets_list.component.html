@@ -1,0 +1,41 @@
+<ngb-tabset>
+    <ngb-tab title="Datasets">
+        <ng-template ngbTabContent >
+            <button class="btn btn-primary" [routerLink]="['/dataset/create']">Create Table</button>
+            <ngx-datatable
+                class="material striped bootstrap"
+                [loadingIndicator]='loading'
+                [scrollbarH]=true
+                [rows]="datasets"
+                [columns]="columns"
+                [headerHeight]="50"
+                [footerHeight]="50"
+                [columnMode]="'force'"
+                [rowHeight]="'auto'"
+                [sortType]="'multi'">
+            </ngx-datatable>
+            <ng-template #actionTmpl  let-row="row" let-value="value">
+                <a class="btn-floating btn-sm"><i class="fa fa-edit"></i></a>
+                <a class="btn-floating btn-sm" tooltip="Drop"><i class="fa fa-minus-square"></i></a>
+            </ng-template>
+            <ng-template #tableNameTmpl  let-row="row" let-value="value">
+                <a class="" [routerLink]="['/dataset',db_name,value]">{{value}}</a>
+            </ng-template>
+
+        </ng-template>
+    </ngb-tab>
+
+    <ngb-tab title="SQL">
+        <ng-template ngbTabContent>
+
+            <!--<textarea class="form-control" [(ngModel)]="sql" name="sql" row="10" column="100"></textarea>-->
+            <codemirror [(ngModel)]="code"
+                [config]="codemirror_config"
+                >
+            </codemirror>
+            <div class="pull-right">
+                <button class="btn btn-info" (click)="excuteQuery(sql)">Go</button>
+            </div>
+        </ng-template>
+    </ngb-tab>
+</ngb-tabset>

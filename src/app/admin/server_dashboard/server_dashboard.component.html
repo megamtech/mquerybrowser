@@ -1,0 +1,168 @@
+<div class="tabs-wrapper">
+    <ngb-tabset (tabChange)="beforeChange($event)">
+        <ngb-tab title="Status">
+            <ng-template ngbTabContent >
+                <div class="row">
+                    <div class="col-md-6" *ngIf="statuses.status.db !=null">
+                        <!--Card-->
+                        <div class="card testimonial-card">
+
+                            <!--Bacground color-->
+                            <!--aqua-gradient-->
+                            <div class="card-up indigo lighten-1">
+                            </div>
+                            <!--Avatar-->
+                            <div class="avatar">
+                                <img src="{{statuses.status.db.img}}"/>
+                            </div>
+
+                            <div class="card-body">
+                                <!--<h4 class="card-title"> {{statuses.status.db.server_type}} </h4>-->
+                                <hr>
+                                <ul>
+                                    <li>
+                                        <b>Server Version - {{statuses.status.db.server_version}}</b>
+                                    </li>
+                                    <li>
+                                        <b> Driver Version - {{statuses.status.db.driver_version}}</b>
+                                    </li>
+                                    <li>
+                                        <b>Client Version - {{statuses.status.db.client_version}}</b>
+                                    </li>
+                                    <li>
+                                        Server Timeout - {{statuses.status.db.server_timeout}}
+                                    </li>
+
+                                </ul>
+                                <table class="table table-bordered table-condensed table-stripped">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of statuses.status.db.variables">
+                                            <td>{{item.Variable_name}}</td>
+                                            <td>{{item.Value}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                        <!--/.Card-->
+
+                    </div>
+
+                    <!--Grid column-->
+                    <div class="col-md-6 " *ngIf="statuses.status.webserver !=null">
+
+                        <!--Card-->
+                        <div class="card testimonial-card" >
+
+                            <!--Bacground color-->
+                            <div class="card-up indigo lighten-1">
+                            </div>
+
+                            <!--Avatar-->
+                            <div class="avatar">
+                                <img src="{{statuses.status.webserver.img}}"/>
+                            </div>
+
+                            <div class="card-body">
+                                <!--<h4 class="card-title">Webserver</h4>-->
+                                <hr>
+                                <ul><li> <b>Version - {{statuses.status.webserver.version}}</b></li></ul>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-6" *ngIf="statuses.status.scripting !=null">
+
+                        <!--Card-->
+                        <div class="card testimonial-card" >
+
+                            <!--Bacground color-->
+                            <div class="card-up indigo lighten-1">
+                            </div>
+
+                            <!--Avatar-->
+                            <div class="avatar">
+                                <img src="{{statuses.status.scripting.img}}"/>
+                            </div>
+
+                            <div class="card-body">
+                                <!--Name-->
+                                <!--<h4 class="card-title">Webserver</h4>-->
+                                <hr>
+                                <!--Quotation-->
+                                <ul>
+                                    <li><b>Version -  {{statuses.status.scripting.version}}</b></li>
+                                </ul>
+                                <div class="row">
+                                    <div  class="col-sm-4" *ngFor="let module of statuses.status.scripting.modules">
+                                          <span> {{module}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/.Card-->
+
+                    </div>
+                </div>
+
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Status">
+            <ng-template ngbTabContent >
+                <ngx-datatable
+                    class="material striped bootstrap"
+                    [loadingIndicator]='loading'
+                    [scrollbarH]=true
+                    [rows]="statuses"
+                    [columns]="status_cols"
+                    [headerHeight]="50"
+                    [footerHeight]="50"
+                    [columnMode]="'force'"
+                    [rowHeight]="'auto'"
+                    [sortType]="'multi'">
+                </ngx-datatable>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Process">
+            <ng-template ngbTabContent >
+                <ngx-datatable
+                    class="material striped bootstrap"
+                    [loadingIndicator]='loading'
+                    [scrollbarH]=true
+                    [rows]="processes"
+                    [columns]="processes_cols"
+                    [headerHeight]="50"
+                    [footerHeight]="50"
+                    [columnMode]="'force'"
+                    [rowHeight]="'auto'"
+                    [sortType]="'multi'">
+                </ngx-datatable>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Query Stats">
+            <ng-template ngbTabContent >
+                <ngx-datatable
+                    class="material striped bootstrap"
+                    [loadingIndicator]='loading'
+                    [scrollbarH]=true
+                    [rows]="qstats"
+                    [columns]="qstats_cols"
+                    [headerHeight]="50"
+                    [footerHeight]="50"
+                    [columnMode]="'force'"
+                    [rowHeight]="'auto'"
+                    [sortType]="'multi'">
+                </ngx-datatable>
+            </ng-template>
+        </ngb-tab>
+
+    </ngb-tabset>
+</div>
